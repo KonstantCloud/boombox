@@ -10,7 +10,7 @@ a private runtime. You do not separately install Node, npm, or Rust.
 Install with Homebrew on macOS or Linux:
 
 ```sh
-brew install KonstantCloud/tap/boombox
+brew install konstantcloud/tap/boombox
 ```
 
 Or install the complete macOS/Linux archive:
@@ -36,6 +36,26 @@ Open or reload your coding agent, then ask:
 Initialization installs the skill and a credential-free local MCP connection.
 It does not authenticate, deploy code, ingest the repository, or start a hosted
 runtime. Local discovery and proof work without login.
+
+## Capabilities
+
+Connect each administrator to the appropriate Product account with `boombox login --account`, then:
+
+```sh
+# Provider administrator
+boombox app apply ./application-bundle.json --json
+boombox capabilities publish ./capability-publication.json
+boombox admissions grant <deployment> --account consumer --capability provider/analyze@1.0.0
+
+# Consumer administrator
+boombox capabilities install provider/analyze@1.0.0
+boombox capabilities invoke provider/analyze --version 1.0.0 --input '{"values":[1,2,3]}'
+```
+
+An application bundle can include `capability_publication` for a host-managed listing. Inspect the deployment
+with `boombox app inspect <deployment> --json` to read its `capability_listing` renewal state. Standalone
+`capabilities publish` publishes the supplied advertisement explicitly. `capabilities list`, `import-manifest`,
+`register`, and `edit` are available in the same CLI. `boombox tree --json` lists every command and option.
 
 ## Agents
 
@@ -105,7 +125,7 @@ for every request or run Boombox's hosted kernel locally.
 The installed TypeScript SDK and type declarations are available at the paths
 printed by `boombox paths --json`; the kit needs no npm installation to run its
 own CLI, MCP, validation, or harness. A TypeScript application that imports the
-SDK as a build dependency can pin `@konstantdotcloud/boombox` in its normal
+SDK as a build dependency can pin `@konstantdotcloud/boombox@0.14.13` in its normal
 package manifest and lockfile. That is an application dependency choice, not
 another CLI prerequisite. There is no bundled Go SDK.
 
@@ -160,7 +180,7 @@ retain the complete directory, and add the directory containing `boombox.exe`
 to PATH. Windows ARM64 and Alpine/musl are not offered.
 
 Homebrew installs under its managed prefix. Upgrade with
-`brew upgrade KonstantCloud/tap/boombox`. For a shell installation, rerun the
+`brew upgrade konstantcloud/tap/boombox`. For a shell installation, rerun the
 installer. It verifies the archive checksum and tests the complete candidate
 before replacing `~/.local/bin/boombox` with a link to it.
 `BOOMBOX_INSTALL_DIR` chooses another bin directory. Previous installations
@@ -210,6 +230,5 @@ supported infrastructure for control of the cloud account, region, data, and
 provider bill. An arbitrary VPS or Kubernetes cluster is not automatically an
 admitted target. An uploaded tarball or green plan is not a deployment.
 
-Follow https://boombox.konstant.cloud/docs/boombox-application-deployment for
-artifact, identity, apply, health, update, and retirement commands, and
-https://boombox.konstant.cloud/docs/boombox-workload-guide for durable work.
+Follow https://boombox.konstant.cloud/docs for application deployment and durable workload contracts.
+The npm package is the TypeScript SDK and authoring library; this native installation supplies the CLI.
