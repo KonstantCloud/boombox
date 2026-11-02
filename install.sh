@@ -17,7 +17,7 @@ arch=$(uname -m 2>/dev/null || true)
 case "${os}:${arch}" in
   Linux:x86_64|Linux:amd64) artifact='boombox-x86_64-unknown-linux-gnu.tar.gz' ;;
   Linux:aarch64|Linux:arm64) artifact='boombox-aarch64-unknown-linux-gnu.tar.gz' ;;
-  Darwin:x86_64) artifact='boombox-x86_64-apple-darwin.tar.gz' ;;
+  Darwin:x86_64) fail 'Boombox for macOS runs on Apple silicon Macs' ;;
   Darwin:arm64|Darwin:aarch64) artifact='boombox-aarch64-apple-darwin.tar.gz' ;;
   *) fail "unsupported platform ${os:-unknown}/${arch:-unknown}" ;;
 esac

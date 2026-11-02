@@ -175,7 +175,7 @@ The launcher resolves its own runtime without consulting PATH, `NODE_PATH`, or
 
 Linux x86-64 and ARM64 support glibc 2.35 or newer (Ubuntu 22.04+, Debian 12+).
 Debian packages install the complete bundle under `/usr/lib/boombox`.
-macOS supports Intel and Apple Silicon. Windows x86-64 uses a zip: extract it,
+macOS runs on Apple silicon. Windows x86-64 uses a zip: extract it,
 retain the complete directory, and add the directory containing `boombox.exe`
 to PATH. Windows ARM64 and Alpine/musl are not offered.
 
